@@ -11,6 +11,7 @@
 package de.linzn.cubitWorldTools;
 
 
+import de.linzn.cubitWorldTools.flatfile.YMLSetup;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CubitWorldToolsPlugin extends JavaPlugin {
 
     private static CubitWorldToolsPlugin inst;
+    public YMLSetup ymlSetup;
 
     public static CubitWorldToolsPlugin inst() {
         return inst;
@@ -30,8 +32,8 @@ public class CubitWorldToolsPlugin extends JavaPlugin {
             this.setEnabled(false);
             return;
         }
+        this.ymlSetup = new YMLSetup(this);
         getLogger().info("Cubit-world-tools hooked!");
-
     }
 
     @Override
@@ -45,7 +47,7 @@ public class CubitWorldToolsPlugin extends JavaPlugin {
             return false;
         }
 
-        if (this.getServer().getPluginManager().getPlugin("dynmap") == null) {
+        if (this.getServer().getPluginManager().getPlugin("WorldEdit") == null) {
             this.getLogger().severe("Error: " + "Dynmap not found!");
             return false;
         }

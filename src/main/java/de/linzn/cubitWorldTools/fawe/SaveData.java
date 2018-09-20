@@ -11,27 +11,22 @@
 package de.linzn.cubitWorldTools.fawe;
 
 import com.boydti.fawe.object.schematic.Schematic;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import de.linzn.cubitWorldTools.CubitObject;
 import de.linzn.cubitWorldTools.CubitWorldToolsPlugin;
 
 import java.io.File;
 import java.io.IOException;
 
 public class SaveData {
-    private BukkitWorld world;
+    private CubitObject cubitObject;
     private File cubitFile;
-    private Vector minPoint;
-    private Vector maxPoint;
     private boolean override;
 
-    public SaveData(File cubitFile, BukkitWorld world, Vector minPoint, Vector maxPoint, boolean override) {
+    public SaveData(File cubitFile, CubitObject cubitObject, boolean override) {
+        this.cubitObject = cubitObject;
         this.cubitFile = cubitFile;
-        this.world = world;
-        this.minPoint = minPoint;
-        this.maxPoint = maxPoint;
         this.override = override;
     }
 
@@ -51,7 +46,7 @@ public class SaveData {
 
     public boolean save() {
         try {
-            CuboidRegion region = new CuboidRegion(world, minPoint, maxPoint);
+            CuboidRegion region = new CuboidRegion(cubitObject.world, cubitObject.minPoint, cubitObject.maxPoint);
             Schematic schem = new Schematic(region);
             schem.save(cubitFile, ClipboardFormat.SCHEMATIC);
         } catch (IOException e) {

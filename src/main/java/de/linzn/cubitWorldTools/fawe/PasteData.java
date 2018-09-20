@@ -11,25 +11,26 @@
 package de.linzn.cubitWorldTools.fawe;
 
 import com.boydti.fawe.object.schematic.Schematic;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import de.linzn.cubitWorldTools.CubitObject;
 
 import java.io.File;
 import java.io.IOException;
 
 public class PasteData {
+    private CubitObject cubitObject;
     private File cubitFile;
-    private BukkitWorld world;
-    private Vector position;
-    private boolean allowUndo;
-    private boolean noAir;
+
+    public PasteData(CubitObject cubitObject, File cubitFile) {
+        this.cubitObject = cubitObject;
+        this.cubitFile = cubitFile;
+    }
 
     private boolean paste() {
         try {
             ClipboardFormat format = ClipboardFormat.findByFile(cubitFile);
             Schematic schematic = format.load(cubitFile);
-            schematic.paste(world, position, allowUndo, !noAir, null);
+            schematic.paste(cubitObject.world, cubitObject.zeroPoint, false, true, null);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
