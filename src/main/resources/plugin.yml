@@ -6,3 +6,7 @@ author: Niklas Linz
 load: POSTWORLD
 depend: [Cubit]
 api-version: 1.13
+commands:
+   tester:
+      description: Tester
+      usage: /<command>

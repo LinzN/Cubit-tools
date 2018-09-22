@@ -11,6 +11,7 @@
 package de.linzn.cubitWorldTools;
 
 
+import de.linzn.cubitWorldTools.commands.Tester;
 import de.linzn.cubitWorldTools.flatfile.YMLSetup;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,6 +33,7 @@ public class CubitWorldToolsPlugin extends JavaPlugin {
             this.setEnabled(false);
             return;
         }
+        getCommand("tester").setExecutor(new Tester());
         this.ymlSetup = new YMLSetup(this);
         getLogger().info("Cubit-world-tools hooked!");
     }

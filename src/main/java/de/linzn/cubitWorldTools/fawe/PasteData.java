@@ -30,7 +30,7 @@ public class PasteData {
         try {
             ClipboardFormat format = ClipboardFormat.findByFile(cubitFile);
             Schematic schematic = format.load(cubitFile);
-            schematic.paste(cubitObject.world, cubitObject.zeroPoint, false, true, null);
+            schematic.paste(this.cubitObject.world, this.cubitObject.zeroPoint, false, true, null);
         } catch (IOException e) {
             e.printStackTrace();
             return false;

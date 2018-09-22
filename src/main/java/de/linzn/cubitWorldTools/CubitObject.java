@@ -12,6 +12,7 @@ package de.linzn.cubitWorldTools;
 
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
+import org.bukkit.Chunk;
 
 public class CubitObject {
     public String name;
@@ -19,6 +20,14 @@ public class CubitObject {
     public Vector minPoint;
     public Vector maxPoint;
     public Vector zeroPoint;
+
+    public CubitObject(String name, Chunk chunk) {
+        this.name = name;
+        this.world = new BukkitWorld(chunk.getWorld());
+        this.minPoint = new Vector(chunk.getX() * 16, 0, chunk.getZ() * 16);
+        this.maxPoint = new Vector(chunk.getX() * 16 + 15, 256, chunk.getZ() * 16 + 15);
+        this.zeroPoint = new Vector(chunk.getX() * 16, 0, chunk.getZ() * 16);
+    }
 
     public CubitObject(String name, BukkitWorld world, Vector minPoint, Vector maxPoint, Vector zeroPoint) {
         this.name = name;

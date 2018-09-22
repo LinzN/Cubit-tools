@@ -46,9 +46,13 @@ public class SaveData {
 
     public boolean save() {
         try {
-            CuboidRegion region = new CuboidRegion(cubitObject.world, cubitObject.minPoint, cubitObject.maxPoint);
-            Schematic schem = new Schematic(region);
-            schem.save(cubitFile, ClipboardFormat.SCHEMATIC);
+            CuboidRegion region = new CuboidRegion(this.cubitObject.world, this.cubitObject.minPoint, this.cubitObject.maxPoint);
+            Schematic schematic = new Schematic(region);
+            if (schematic.getClipboard() == null) {
+                return false;
+            }
+            schematic.getClipboard().setOrigin(this.cubitObject.zeroPoint);
+            schematic.save(cubitFile, ClipboardFormat.SCHEMATIC);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
