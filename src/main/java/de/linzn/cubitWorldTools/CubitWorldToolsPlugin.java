@@ -50,7 +50,7 @@ public class CubitWorldToolsPlugin extends JavaPlugin {
         }
 
         if (this.getServer().getPluginManager().getPlugin("WorldEdit") == null) {
-            this.getLogger().severe("Error: " + "Dynmap not found!");
+            this.getLogger().severe("Error: " + "WorldEdit not found!");
             return false;
         }
 
