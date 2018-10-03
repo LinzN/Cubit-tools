@@ -38,6 +38,7 @@ public class CubitWorldRegenerator {
         }
         setRunning(true);
 
+        plugin.getServer().getScheduler().runTask(this.plugin, world::save);
         new CleanupTask(this.plugin, this, world).runTaskTimerAsynchronously(this.plugin, 0, 20L);
         new RegenerationTask(this.plugin, this, world).runTaskTimer(this.plugin, 60L, 20L);
 
