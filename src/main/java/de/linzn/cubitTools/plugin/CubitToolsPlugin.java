@@ -13,6 +13,7 @@ package de.linzn.cubitTools.plugin;
 
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import de.linzn.cubit.bukkit.plugin.CubitBukkitPlugin;
 import de.linzn.cubitTools.CToolsCommand;
 import de.linzn.cubitTools.flatfile.CubitToolsConfigHandler;
 import de.linzn.cubitTools.regenerator.CubitWorldRegenerator;
@@ -60,7 +61,7 @@ public class CubitToolsPlugin extends JavaPlugin {
             debug("Error: " + "Cubit not found!");
             return false;
         } else {
-            debug("Hooked cubit version: " + CubitToolsPlugin.inst.getDescription().getVersion());
+            debug("Hooked cubit version: " + CubitBukkitPlugin.inst().getDescription().getVersion());
         }
 
         if (this.getServer().getPluginManager().getPlugin("WorldEdit") == null) {
