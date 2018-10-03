@@ -47,7 +47,7 @@ public class CToolsCommand implements CommandExecutor {
         } else {
             helpCommand(commandSender);
         }
-        return false;
+        return true;
     }
 
     private void cleanCommand(CommandSender commandSender, String[] args) {
@@ -83,9 +83,9 @@ public class CToolsCommand implements CommandExecutor {
     }
 
     private void helpCommand(CommandSender commandSender) {
-        commandSender.sendMessage(ChatColor.DARK_PURPLE + "######################################################");
-        commandSender.sendMessage(ChatColor.GOLD + "Start new world cleanup: /ctools cleanup start <world>");
-        commandSender.sendMessage(ChatColor.GOLD + "Cancel exist world cleanup: /ctools cleanup cancel");
-        commandSender.sendMessage(ChatColor.DARK_PURPLE + "######################################################");
+        commandSender.sendMessage(ChatColor.DARK_PURPLE + "###################################################");
+        commandSender.sendMessage(ChatColor.GOLD + "Start new world cleanup: "+ChatColor.YELLOW+"/ctools cleanup start <world>");
+        commandSender.sendMessage(ChatColor.GOLD + "Cancel exist world cleanup: "+ChatColor.YELLOW+"/ctools cleanup cancel");
+        commandSender.sendMessage(ChatColor.DARK_PURPLE + "###################################################");
     }
 }
