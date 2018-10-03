@@ -50,7 +50,9 @@ public class RegenerationTask extends BukkitRunnable {
             }
 
             Pair<Integer, Integer> chunk = this.regenerator.regenerateChunks.iterator().next();
-            world.regenerateChunk(chunk.getLeft(), chunk.getRight());
+            if (!world.regenerateChunk(chunk.getLeft(), chunk.getRight())) {
+                plugin.debug("Error while regenerating chunk: " + chunk.getLeft() + ", " + chunk.getRight());
+            }
             this.regenerator.regenerateChunks.remove(chunk);
         }
         i++;
