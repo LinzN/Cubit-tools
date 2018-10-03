@@ -11,6 +11,8 @@
 package de.linzn.cubitTools.plugin;
 
 
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import de.linzn.cubitTools.CToolsCommand;
 import de.linzn.cubitTools.flatfile.CubitToolsConfigHandler;
 import de.linzn.cubitTools.regenerator.CubitWorldRegenerator;
@@ -36,13 +38,14 @@ public class CubitToolsPlugin extends JavaPlugin {
         inst = this;
         if (!getPluginDepends()) {
             this.setEnabled(false);
+            debug("Not all dependencies found! Disabling plugin.");
             return;
         }
         this.debugLevel = DebugLevel.HIGH;
         this.cubitToolsConfigHandler = new CubitToolsConfigHandler(this);
         this.cubitWorldRegenerator = new CubitWorldRegenerator(this);
         getCommand("ctools").setExecutor(new CToolsCommand(this, this.cubitWorldRegenerator));
-        debug("cubit-tools hooked!");
+        debug("All functions are available!");
     }
 
     @Override
@@ -56,15 +59,21 @@ public class CubitToolsPlugin extends JavaPlugin {
         if (this.getServer().getPluginManager().getPlugin("Cubit") == null) {
             debug("Error: " + "Cubit not found!");
             return false;
+        } else {
+            debug("Hooked cubit version: " + CubitToolsPlugin.inst.getDescription().getVersion());
         }
 
         if (this.getServer().getPluginManager().getPlugin("WorldEdit") == null) {
             debug("Error: " + "WorldEdit not found!");
             return false;
+        } else {
+            debug("Hooked worldedit version: " + WorldEdit.getVersion());
         }
         if (this.getServer().getPluginManager().getPlugin("WorldGuard") == null) {
             debug("Error: " + "WorldGuard not found!");
             return false;
+        } else {
+            debug("Hooked worldguard version: " + WorldGuardPlugin.inst().getDescription().getVersion());
         }
 
         return true;

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 
-public class DeletionTask extends BukkitRunnable {
+public class CleanupTask extends BukkitRunnable {
 
     private static final String STATS_FORMAT = "%s: %s/%s, deleted %s regions, %s chunks";
 
@@ -44,7 +44,7 @@ public class DeletionTask extends BukkitRunnable {
     private int count = 0, regionChunkX, regionChunkZ, localChunkX = 0, localChunkZ = 0, regionsDeleted = 0, chunksDeleted = 0;
 
 
-    public DeletionTask(CubitToolsPlugin plugin, CubitWorldRegenerator regenerator, World world) {
+    public CleanupTask(CubitToolsPlugin plugin, CubitWorldRegenerator regenerator, World world) {
         this.plugin = plugin;
         this.regenerator = regenerator;
         this.world = world;
@@ -84,14 +84,14 @@ public class DeletionTask extends BukkitRunnable {
     public void run() {
 
         if (!this.regenerator.isRunning()) {
-            plugin.getLogger().info("Regeneration canceled for " + getRunStats());
+            plugin.getLogger().info("Cleanup task canceled for " + getRunStats());
             this.cancel();
             return;
         }
 
         if (count >= regionFileNames.length) {
             if (this.regenerator.regenerateChunks.isEmpty()) {
-                plugin.getLogger().info("Regeneration complete for " + getRunStats());
+                plugin.getLogger().info("Cleanup task complete for " + getRunStats());
                 this.regenerator.setRunning(false);
                 this.cancel();
             }
@@ -100,7 +100,6 @@ public class DeletionTask extends BukkitRunnable {
 
 
         for (int i = 0; i < chunksPerCheck && count < regionFileNames.length; ++i) {
-
             if (chunksPerCheck <= 1024 && i > 0 && localChunkZ >= 32) {
                 return;
             }
@@ -123,7 +122,7 @@ public class DeletionTask extends BukkitRunnable {
         }
 
         if (localChunkZ >= 32) {
-            handleRegionCompletion();
+            checkingRegionFiles();
             if (chunksPerCheck <= 1024) {
                 return;
             }
@@ -136,14 +135,14 @@ public class DeletionTask extends BukkitRunnable {
             regionChunks.add(new ImmutablePair<>(localChunkX, localChunkZ));
         } else {
             if (this.plugin.debug(DebugLevel.HIGH)) {
-                this.plugin.debug("Chunk " + getChunkPath(chunkX, chunkZ) + " contains protection!");
+                this.plugin.debug("Chunk " + getChunkPath(chunkX, chunkZ) + " contains cubit region!");
             }
         }
 
         localChunkX++;
     }
 
-    private void handleRegionCompletion() {
+    private void checkingRegionFiles() {
         ListIterator<Pair<Integer, Integer>> iterator = regionChunks.listIterator();
         boolean containsLoaded = false;
         while (iterator.hasNext()) {
@@ -155,12 +154,12 @@ public class DeletionTask extends BukkitRunnable {
 
         if (regionChunks.size() == 1024) {
             if (containsLoaded) {
-                deleteChunks(iterator, world);
+                addToChunkRegeneration(iterator, world);
             } else {
-                deleteRegion(iterator);
+                deleteWholeRegionFile(iterator);
             }
         } else if (regionChunks.size() > 0) {
-            deleteChunks(iterator, world);
+            addToChunkRegeneration(iterator, world);
         }
 
         regionChunks.clear();
@@ -176,14 +175,14 @@ public class DeletionTask extends BukkitRunnable {
             regionChunkZ = regionLowestChunk.getRight();
 
             if (plugin.debug(DebugLevel.HIGH)) {
-                plugin.debug(String.format("Checking %s:%s (%s/%s)", world.getName(),
+                plugin.debug(String.format("Inspecting %s:%s (%s/%s)", world.getName(),
                         regionFileNames[count], count, regionFileNames.length));
             }
         }
     }
 
 
-    private void deleteRegion(ListIterator<Pair<Integer, Integer>> iterator) {
+    private void deleteWholeRegionFile(ListIterator<Pair<Integer, Integer>> iterator) {
         String regionFileName = regionFileNames[count];
         File regionFile = new File(regionDir, regionFileName);
         if (regionFile.exists() && regionFile.delete()) {
@@ -201,7 +200,7 @@ public class DeletionTask extends BukkitRunnable {
     }
 
 
-    private void deleteChunks(ListIterator<Pair<Integer, Integer>> iterator, World world) {
+    private void addToChunkRegeneration(ListIterator<Pair<Integer, Integer>> iterator, World world) {
         String regionFileName = regionFileNames[count];
         int chunkCounter = 0;
         while (iterator.hasPrevious()) {
@@ -233,7 +232,7 @@ public class DeletionTask extends BukkitRunnable {
     }
 
     private String getChunkPath(int chunkX, int chunkZ) {
-        return new StringBuilder().append(chunkX).append('_').append(chunkZ).toString();
+        return String.valueOf(chunkX) + '_' + chunkZ;
     }
 
 

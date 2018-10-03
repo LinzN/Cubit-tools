@@ -11,7 +11,7 @@
 package de.linzn.cubitTools.regenerator;
 
 import de.linzn.cubitTools.plugin.CubitToolsPlugin;
-import de.linzn.cubitTools.regenerator.tasks.DeletionTask;
+import de.linzn.cubitTools.regenerator.tasks.CleanupTask;
 import de.linzn.cubitTools.regenerator.tasks.RegenerationTask;
 import de.linzn.cubitTools.regenerator.utils.DebugLevel;
 import org.apache.commons.lang3.tuple.Pair;
@@ -32,17 +32,17 @@ public class CubitWorldRegenerator {
     public void startCleanupWorld(World world) {
         if (isRunning()) {
             if (plugin.debug(DebugLevel.LOW)) {
-                plugin.debug("There is already an active task!");
+                plugin.debug("There is already an active cleanup task!");
             }
             return;
         }
         setRunning(true);
 
-        new DeletionTask(this.plugin, this, world).runTaskTimerAsynchronously(this.plugin, 0, 20L);
+        new CleanupTask(this.plugin, this, world).runTaskTimerAsynchronously(this.plugin, 0, 20L);
         new RegenerationTask(this.plugin, this, world).runTaskTimer(this.plugin, 60L, 20L);
 
         if (plugin.debug(DebugLevel.LOW)) {
-            plugin.debug("Starting world cleanup " + world.getName());
+            plugin.debug("Starting world cleanup task for " + world.getName());
         }
 
     }
