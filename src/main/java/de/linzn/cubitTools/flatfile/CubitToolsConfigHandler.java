@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2018. MineGaming - All Rights Reserved
  * You may use, distribute and modify this code under the
@@ -8,20 +9,20 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.cubitWorldTools.flatfile;
+package de.linzn.cubitTools.flatfile;
 
 
 import de.linzn.cubit.internal.configurations.setup.CustomConfig;
 import org.bukkit.plugin.Plugin;
 
-public class YMLSetup {
+public class CubitToolsConfigHandler {
 
-    public ChunkFlatfile chunkFlatfile;
+    public CubitToolsOptions cubitToolsOptions;
     private Plugin plugin;
 
-    public YMLSetup(Plugin plugin) {
+    public CubitToolsConfigHandler(Plugin plugin) {
         this.plugin = plugin;
-        CustomConfig settingsConfig = new CustomConfig(this.plugin, this.plugin.getDataFolder(), "chunkFlatfile.yml");
-        this.chunkFlatfile = new ChunkFlatfile(settingsConfig);
+        CustomConfig settingsConfig = new CustomConfig(this.plugin, this.plugin.getDataFolder(), "cubitToolsOptions.yml");
+        this.cubitToolsOptions = new CubitToolsOptions(settingsConfig);
     }
 }

@@ -1,12 +1,12 @@
-name: cubit-world-tools
-main : de.linzn.cubitWorldTools.CubitWorldToolsPlugin
+name: cubit-tools
+main : de.linzn.cubitTools.plugin.CubitToolsPlugin
 version: ${project.version}
-description: An addon for Cubit to manage worlddata
+description: An addon for Cubit to manage worldData
 author: Niklas Linz
 load: POSTWORLD
-depend: [Cubit]
+depend: [Cubit, WorldEdit, WorldGuard]
 api-version: 1.13
 commands:
-   tester:
-      description: Tester
+   ctools:
+      description: CTools command
       usage: /<command>
