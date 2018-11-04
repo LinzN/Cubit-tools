@@ -10,7 +10,6 @@
 
 package de.linzn.cubitTools.regenerator.tasks;
 
-import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
@@ -225,8 +224,8 @@ public class CleanupTask extends BukkitRunnable {
     private Boolean isProtected(World world, int chunkX, int chunkZ) {
         int chunkBlockX = CordConverter.chunkToBlock(chunkX);
         int chunkBlockZ = CordConverter.chunkToBlock(chunkZ);
-        BlockVector bottom = new BlockVector(chunkBlockX, 0, chunkBlockZ);
-        BlockVector top = new BlockVector(chunkBlockX + 15, 255, chunkBlockZ + 15);
+        BlockVector3 bottom = BlockVector3.at(chunkBlockX, 0, chunkBlockZ);
+        BlockVector3 top = BlockVector3.at(chunkBlockX + 15, 255, chunkBlockZ + 15);
         return WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(world))
                 .getApplicableRegions(new ProtectedCuboidRegion("CUBIT_TMP", bottom, top)).size() > 0;
     }

@@ -10,26 +10,25 @@
 
 package de.linzn.cubitTools.schematics;
 
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import org.bukkit.Chunk;
 
 public class CubitObject {
     public String name;
     public BukkitWorld world;
-    public Vector minPoint;
-    public Vector maxPoint;
-    public Vector originPoint;
+    public BlockVector3 minPoint;
+    public BlockVector3 maxPoint;
+    public BlockVector3 originPoint;
 
     public CubitObject(String name, Chunk chunk) {
         this.name = name;
         this.world = new BukkitWorld(chunk.getWorld());
-        this.minPoint = new Vector(chunk.getX() * 16, 0, chunk.getZ() * 16);
-        this.maxPoint = new Vector(chunk.getX() * 16 + 15, 256, chunk.getZ() * 16 + 15);
-        this.originPoint = new Vector(chunk.getX() * 16, 0, chunk.getZ() * 16);
+        this.minPoint = BlockVector3.at(chunk.getX() * 16, 0, chunk.getZ() * 16);
+        this.maxPoint = BlockVector3.at(chunk.getX() * 16 + 15, 256, chunk.getZ() * 16 + 15);
+        this.originPoint = BlockVector3.at(chunk.getX() * 16, 0, chunk.getZ() * 16);
     }
 
-    public CubitObject(String name, BukkitWorld world, Vector minPoint, Vector maxPoint, Vector originPoint) {
+    public CubitObject(String name, BukkitWorld world, BlockVector3 minPoint, BlockVector3 maxPoint, BlockVector3 originPoint) {
         this.name = name;
         this.world = world;
         this.minPoint = minPoint;
