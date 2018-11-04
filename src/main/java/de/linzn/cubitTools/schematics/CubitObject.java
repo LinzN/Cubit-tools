@@ -11,6 +11,7 @@
 package de.linzn.cubitTools.schematics;
 
 import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.math.BlockVector3;
 import org.bukkit.Chunk;
 
 public class CubitObject {
