@@ -38,7 +38,7 @@ public class RegenerationTask extends BukkitRunnable {
             return;
         }
 
-        if (i >= 5) {
+        if (i >= 2) {
             plugin.debug("Chunks in queue: " + this.regenerator.regenerateChunks.size());
             i = 0;
         }
