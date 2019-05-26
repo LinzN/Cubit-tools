@@ -10,8 +10,9 @@
 
 package de.linzn.cubitTools.regenerator.utils;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
+
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.ImmutablePair;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

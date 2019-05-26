@@ -12,8 +12,8 @@ package de.linzn.cubitTools.regenerator.tasks;
 
 import de.linzn.cubitTools.plugin.CubitToolsPlugin;
 import de.linzn.cubitTools.regenerator.CubitWorldRegenerator;
-import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
